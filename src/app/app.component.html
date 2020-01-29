@@ -1,14 +1,23 @@
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
-  <div class="left-content" [routerLink]="['']" >
+  <div class="left-content" [routerLink]="['']">
     <img width="75" alt="Easy Delivery Hawk Logo" src="../assets/icon/hawk.png" />
     <span>Easy Delivery Hawk</span>
   </div>
-  <!-- <div class="right-content">
-    <div class="menu-button" (click)="sidebar_open = !sidebar_open">
-      <img width="40" alt="menue" src="../assets/icon/menu.png" />
+  <div class="right-content">
+    <div *ngIf="loginService.isLoggedIn; else not_logged_in">
+      <div class="menu-button" (click)="navToLogin()">
+        <img src="../assets/icon/profile_black_green.png" width="40" alt="Zum Profil">
+        <div class="name">
+          <p>Vornalbert</p>
+          <p>Nachnameier</p>
+        </div>
+      </div>
     </div>
-  </div> -->
+    <ng-template #not_logged_in>
+      <img (click)="navToLogin()" style="cursor: pointer;" src="../assets/icon/profile_grey.png" width="40" alt="Zum Anmelden">
+    </ng-template>
+  </div>
 </div>
 
 <div class="content" role="main">

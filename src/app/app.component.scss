@@ -33,18 +33,28 @@
       justify-content: space-between;
       align-items: center;
       background-color: #1976d2;
-      height: 60px;
+      height: 80px;
       margin: -8px;
+      padding: 0 8px;
       color: white;
       font-weight: 600;
       .left-content {
           @include toolbar-side();
+          font-size: 150%;
       }
       .right-content {
           @include toolbar-side();
           margin: 0 1em 0 1em;
           .menu-button {
+            box-sizing: border-box;
+            margin: 5%;
+            margin-right: 10%;
             cursor: pointer;
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
           }
       }
   }
