@@ -1,1 +1,24 @@
-<p>login works!</p>
+<h1 class="mb-5">Login</h1>
+
+<form [formGroup]="form" (ngSubmit)="onSubmitLogin()">
+    <div class="form-group">
+        <label for="mail">Email Addresse</label>
+        <input type="email" class="form-control" id="mail" aria-describedby="emailHelp" name="name"
+            formControlName="email">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <control-messages [form]="form" [input]="'email'" [inputLabel]="'Email'"></control-messages>
+
+    <div class="form-group">
+        <label for="pwd">Passwort</label>
+        <input type="password" class="form-control" id="pwd" name="pwd" formControlName="password">
+    </div>
+    <control-messages [form]="form" [input]="'password'" [inputLabel]="'Passwort'"></control-messages>
+
+    <button type="submit" class="btn btn-primary" [ngClass]="{'btn-secondary':!form.valid && clickedOnce}"
+        [disabled]="!form.valid && clickedOnce">Anmelden</button>
+    <div *ngIf="!form.valid && clickedOnce" class="alert alert-danger mt-2">
+        Bitte die Felder ausfüllen!
+    </div>
+</form>
+<button class="mt-5 btn btn-block btn-warning" routerLink="/register">Registrieren</button>
