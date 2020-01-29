@@ -11,6 +11,9 @@ import { SidebarModule } from "ng-sidebar";
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { HomeComponent } from './components/home/home.component';
 import { HttpClientModule } from "@angular/common/http";
+import { FormsModule, FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { RegisterComponent } from './components/register/register.component';
+import { FormMessagesComponent } from './components/form-messages/form-messages.component';
 
 @NgModule({
   declarations: [
@@ -20,15 +23,20 @@ import { HttpClientModule } from "@angular/common/http";
     OfferNewComponent,
     LoginComponent,
     PageNotFoundComponent,
-    HomeComponent
+    HomeComponent,
+    RegisterComponent,
+    FormMessagesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     SidebarModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
