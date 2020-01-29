@@ -15,10 +15,6 @@ export class OfferListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.offerService.makeTest().subscribe((test) => {
-      console.log("gettn answer: ", test);
-      this.testString = test;
-    })
   }
 
 }
