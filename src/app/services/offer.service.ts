@@ -11,9 +11,4 @@ export class OfferService {
   constructor(
     private http: HttpClient
   ) { }
-
-  makeTest(): Observable<string> {
-    console.log("sending request...");
-    return this.http.get<string>(this.url + "test2");
-  }
 }
