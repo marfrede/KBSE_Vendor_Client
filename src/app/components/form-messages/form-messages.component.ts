@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-form-messages',
-  templateUrl: './form-messages.component.html',
-  styleUrls: ['./form-messages.component.scss']
+  selector: 'control-messages',
+  templateUrl: './form-messages.component.html'
 })
 export class FormMessagesComponent implements OnInit {
-
-  constructor() { }
+  message: string;
+  @Input() input: string;
+  @Input() inputLabel: string;
+  @Input() form: FormGroup
+  constructor() {}
 
   ngOnInit() {
   }
 
+  public logErrors(){
+    console.log(this.input,this.form.get(this.input).errors);
+  }
 }

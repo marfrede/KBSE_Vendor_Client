@@ -1,1 +1,24 @@
-<p>form-messages works!</p>
+<div *ngIf="form.get(input).errors && form.get(input).touched" class="alert alert-danger" (click)="logErrors()">
+    <div *ngIf="form.get(input).errors.required">
+        {{inputLabel}} ist ein Pflichtfeld.
+    </div>
+    <div *ngIf="form.get(input).errors.email">
+        {{inputLabel}} muss eine gültige Email Adresse sein.
+    </div>
+    <div *ngIf="form.get(input).errors.pattern">
+        {{inputLabel}} ist ungültig.
+    </div>
+    <div *ngIf="form.get(input).errors.minlength">
+        {{inputLabel}} ist zu kurz.
+    </div>
+    <div *ngIf="form.get(input).errors.min">
+        {{inputLabel}} ist zu hoch.
+    </div>
+    <div *ngIf="form.get(input).errors.max">
+        {{inputLabel}} ist zu niedrig.
+    </div>
+</div>
+<div *ngIf="form.get(input).errors && form.get(input).errors.maxlength && (form.get(input).dirty || form.get(input).touched)"
+    class="alert alert-danger" (click)="logErrors()">
+    {{inputLabel}} ist zu lang.
+</div>
