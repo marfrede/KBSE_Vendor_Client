@@ -1,1 +1,66 @@
-<p>register works!</p>
+<h1 class="mb-5">Registrieren</h1>
+
+<form (ngSubmit)="onSubmitRegister()" [formGroup]="form">
+    <label for="name">Name:</label>
+    <div class="form-group row mb-0">
+        <div class="form-group col-sm">
+            <label for="firstname" class="sr-only">Vorname</label>
+            <input type="text" class="form-control" id="firstname" placeholder="Vorname" name="firstname"
+                formControlName="firstname">
+        </div>
+        <div class="form-group col-sm">
+            <label for="lastname" class="sr-only">Nachname</label>
+            <input type="text" class="form-control" id="lastname" placeholder="Nachname" name="lastname"
+                formControlName="lastname">
+        </div>
+    </div>
+    <control-messages [form]="form" [input]="'firstname'" [inputLabel]="'Vorname'"></control-messages>
+    <control-messages [form]="form" [input]="'lastname'" [inputLabel]="'Nachname'"></control-messages>
+
+    <label for="name">Wohnort:</label>
+    <div class="form-group row mb-0">
+        <div class="form-group col-3">
+            <label for="postcode" class="sr-only">PLZ</label>
+            <input type="text" class="form-control" id="postcode" placeholder="PLZ" name="postcode"
+                formControlName="postcode">
+        </div>
+        <div class="form-group col-9">
+            <label for="city" class="sr-only">Stadt</label>
+            <input type="text" class="form-control" id="city" placeholder="Stadt" name="city" formControlName="city">
+        </div>
+    </div>
+    <control-messages [form]="form" [input]="'postcode'" [inputLabel]="'PLZ'"></control-messages>
+    <control-messages [form]="form" [input]="'city'" [inputLabel]="'Stadt'"></control-messages>
+
+    <label for="name">Straße</label>
+    <div class="form-group row mb-0">
+        <div class="form-group col-9">
+            <label for="street" class="sr-only">Straße</label>
+            <input type="text" class="form-control" id="street" placeholder="Straße" name="street"
+                formControlName="street">
+        </div>
+        <div class="form-group col-3">
+            <label for="housenumber" class="sr-only">Hausnummer</label>
+            <input type="text" class="form-control" id="housenumber" placeholder="Hausnr." name="housenumber"
+                formControlName="nr">
+        </div>
+    </div>
+    <control-messages [form]="form" [input]="'street'" [inputLabel]="'Straße'"></control-messages>
+    <control-messages [form]="form" [input]="'nr'" [inputLabel]="'Hausnummer'"></control-messages>
+
+    <div class="form-group mt-3">
+        <label for="mail">Email Addresse</label>
+        <input type="email" class="form-control" id="mail" aria-describedby="emailHelp" name="name"
+            formControlName="email">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <control-messages [form]="form" [input]="'email'" [inputLabel]="'Email'"></control-messages>
+
+    <div class="form-group">
+        <label for="pwd">Passwort</label>
+        <input type="password" class="form-control" id="pwd" name="pwd" formControlName="password">
+    </div>
+    <control-messages [form]="form" [input]="'password'" [inputLabel]="'Passwort'"></control-messages>
+
+    <button type="submit" class="btn btn-primary" [ngClass]="{'btn-secondary': !form.valid}" [disabled]="!form.valid">Registrieren</button>
+</form>
