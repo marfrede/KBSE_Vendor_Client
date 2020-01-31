@@ -11,14 +11,14 @@ import { ActivatedRoute, Router } from "@angular/router";
 })
 export class LoginComponent implements OnInit {
 
-  private form:FormGroup;
+  private form: FormGroup;
   public clickedOnce: boolean;
 
-  private profile:Profile;
+  private profile: Profile;
 
   constructor(
-    private loginService:LoginService,
-    private formBuilder:FormBuilder,
+    private loginService: LoginService,
+    private formBuilder: FormBuilder,
     private router: Router
   ) { }
 
@@ -31,17 +31,19 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmitLogin() {
-    if(!this.form.valid) {
+    if (!this.form.valid) {
       this.clickedOnce = true;
       return;
     }
     this.retrieveValues();
     console.log(this.profile);
-    this.loginService.login(this.profile).subscribe((answer)=>{
-      console.log("answer:",answer);
+    this.loginService.login(this.profile).subscribe((response) => {
+      console.log("response:", response);
       //FALLUNTERSCHEIDUNG
       //case success
-      this.setLoggedIn();
+      if (response.ok) {
+        this.setLoggedIn();
+      }
     })
   }
 

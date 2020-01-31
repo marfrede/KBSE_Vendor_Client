@@ -62,5 +62,9 @@
     </div>
     <control-messages [form]="form" [input]="'password'" [inputLabel]="'Passwort'"></control-messages>
 
-    <button type="submit" class="btn btn-primary" [ngClass]="{'btn-secondary': !form.valid}" [disabled]="!form.valid">Registrieren</button>
+    <button type="submit" class="btn btn-primary" [ngClass]="{'btn-secondary': !form.valid}"
+        [disabled]="!form.valid">Registrieren</button>
+    <div *ngIf="!form.valid && clickedOnce" class="alert alert-danger mt-2">
+        Bitte die Felder ausfüllen!
+    </div>
 </form>
