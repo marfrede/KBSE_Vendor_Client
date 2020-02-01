@@ -1,0 +1,11 @@
+<div *ngIf="loginService.user" class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">{{loginService.user.name}}</h5>
+        <ul class="list-group list-group-flush">
+            <li class="card-text list-group-item">{{loginService.user.street}} {{loginService.user.address}}</li>
+            <li class="card-text list-group-item">{{loginService.user.postCode}} {{loginService.user.city}}</li>
+            <li class="card-text list-group-item">{{loginService.profile.username}}</li>
+        </ul>
+        <button class="btn btn-block btn-warning" (click)="logout()">Ausloggen</button>
+    </div>
+</div>
