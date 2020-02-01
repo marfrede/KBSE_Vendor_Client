@@ -1,5 +1,7 @@
 <h1 class="mb-5">Registrieren</h1>
 
+<app-server-messages [inputLabel]="serverMessage"></app-server-messages>
+
 <form (ngSubmit)="onSubmitRegister()" [formGroup]="form">
     <label for="name">Name:</label>
     <div class="form-group row mb-0">

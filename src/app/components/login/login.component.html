@@ -1,5 +1,7 @@
 <h1 class="mb-5">Login</h1>
 
+<app-server-messages [inputLabel]="serverMessage"></app-server-messages>
+
 <form [formGroup]="form" (ngSubmit)="onSubmitLogin()">
     <div class="form-group">
         <label for="mail">Email Addresse</label>
@@ -16,9 +18,12 @@
     <control-messages [form]="form" [input]="'password'" [inputLabel]="'Passwort'"></control-messages>
 
     <button type="submit" class="btn btn-primary" [ngClass]="{'btn-secondary':!form.valid && clickedOnce}"
-        [disabled]="!form.valid && clickedOnce">Anmelden</button>
+        [disabled]="!form.valid && clickedOnce">Anmelden
+    </button>
+
     <div *ngIf="!form.valid && clickedOnce" class="alert alert-danger mt-2">
         Bitte die Felder ausfüllen!
     </div>
+
 </form>
 <button class="mt-5 btn btn-block btn-warning" routerLink="/register">Registrieren</button>
