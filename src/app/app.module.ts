@@ -14,6 +14,8 @@ import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { RegisterComponent } from './components/register/register.component';
 import { FormMessagesComponent } from './components/form-messages/form-messages.component';
+import { ServerMessagesComponent } from './components/server-messages/server-messages.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { FormMessagesComponent } from './components/form-messages/form-messages.
     PageNotFoundComponent,
     HomeComponent,
     RegisterComponent,
-    FormMessagesComponent
+    FormMessagesComponent,
+    ServerMessagesComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
