@@ -8,28 +8,57 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LoginService {
-  url: string = 'http://localhost:8080/VirtuelleLebensmittel/resources/vendor/';
-  public isLoggedIn: boolean;
+  readonly url: string = 'http://localhost:8080/VirtuelleLebensmittel/resources/vendor/';
+
   public profile: Profile;
   public user: User;
+  public token: string;
+
   private httpOptions = {
     responseType: 'text' as 'text',
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     }),
-    observe: 'response' as 'response' 
+    observe: 'response' as 'response'
+  };
+
+  private httpOptionsPlain = {
+    responseType: 'text' as 'text',
+    headers: new HttpHeaders({
+      'Content-Type': 'text/plain'
+    }),
+    observe: 'response' as 'response'
   };
 
   constructor(
     private http: HttpClient
   ) { }
 
-  public register(profile: Profile, user: User): Observable<HttpResponse<string>> {
-    let toSend:string = "["+JSON.stringify(profile) + "," + JSON.stringify(user)+"]";
-    return this.http.post(this.url + "registerSignature", toSend, this.httpOptions);
+  public register$(profile: Profile, user: User): Observable<HttpResponse<string>> {
+    return this.http.post(
+      this.url + "register", //url
+      "[" + JSON.stringify(profile) + "," + JSON.stringify(user) + "]", //req body
+      this.httpOptions //options
+    );
   }
 
-  public login(profile: Profile): Observable<HttpResponse<string>> {
-    return this.http.post(this.url + "loginSignature", JSON.stringify(profile), this.httpOptions);
+  public login$(profile: Profile): Observable<HttpResponse<string>> {
+    return this.http.post(this.url + "login", JSON.stringify(profile), this.httpOptions);
   }
+
+  public logout$(): Observable<HttpResponse<string>>{
+    return this.http.post(this.url + "logout", this.token, this.httpOptionsPlain);
+  }
+
+  setLoggedIn(user: User, profile:Profile, token: string): void {
+    this.token = token;
+    this.user = user;
+    this.profile = profile;
+  }
+  setLoggedOut(): void {
+    this.token = null;
+    this.user = null;
+    this.profile = null;
+  }
+
 }
