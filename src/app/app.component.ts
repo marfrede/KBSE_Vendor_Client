@@ -8,7 +8,7 @@ import { LoginService } from './services/login.service';
 })
 export class AppComponent {
   constructor(
-    public loginService:LoginService
+    private loginService:LoginService
   ){}
   navToLogin(){
     
