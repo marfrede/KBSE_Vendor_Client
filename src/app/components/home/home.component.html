@@ -6,13 +6,19 @@
 <h3>Sie haben folgende Möglichkeiten:</h3>
 
 <div class="card-container">
-    <div class="card" [routerLink]="['/new']">
+    <div *ngIf="!loginService.token" class="card" [routerLink]="['/login']">
+        <div>Login</div>
+        <svg class="material-icons" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+        </svg>
+    </div>
+    <div *ngIf="loginService.token" class="card" [routerLink]="['/new']">
         <div>Neues Angebot</div>
         <svg class="material-icons" width="24" height="24" viewBox="0 0 24 24">
             <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
         </svg>
     </div>
-    <div class="card" [routerLink]="['/all']">
+    <div *ngIf="loginService.token" class="card" [routerLink]="['/all']">
         <div>Meine Angebote</div>
         <svg class="material-icons" width="24" height="24" viewBox="0 0 24 24">
             <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />

@@ -5,7 +5,7 @@
     <span>Easy Delivery Hawk</span>
   </div>
   <div class="right-content">
-    <div *ngIf="loginService.user; else not_logged_in">
+    <div *ngIf="loginService.token && loginService.user; else not_logged_in">
       <div class="menu-button" [routerLink]="['/profile']">
         <img src="../assets/icon/profile_black_green.png" width="40" alt="Zum Profil">
         <div class="name">
