@@ -1,4 +1,4 @@
-# KBSE_Vendor_Client ([KBSE_Shop_Server](https://github.com/Teekesselchen/KBSE_VirtuelleLebensmittel "Visit ShopServer on Github!"))
+# KBSE_Vendor_Client <sub> ([KBSE_Shop_Server](https://github.com/Teekesselchen/KBSE_VirtuelleLebensmittel "Visit ShopServer on Github!")) </sub>
 ## LEGENDE
 ### Akteure	
 |Akteur|Abkürzung|
