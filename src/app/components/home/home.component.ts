@@ -14,7 +14,7 @@ export class HomeComponent implements AfterViewInit {
 
   constructor(
     private location: Location,
-    private loginService: LoginService,
+    public loginService: LoginService,
     private http: HttpClient
   ) { }
 

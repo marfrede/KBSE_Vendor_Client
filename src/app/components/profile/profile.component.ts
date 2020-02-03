@@ -10,7 +10,7 @@ import { LoginService } from '../../services/login.service';
 export class ProfileComponent implements OnInit {
 
   constructor(
-    private loginService: LoginService,
+    public loginService: LoginService,
     private location: Location
   ) { }
 

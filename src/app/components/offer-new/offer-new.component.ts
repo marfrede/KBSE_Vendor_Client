@@ -45,7 +45,7 @@ export class OfferNewComponent implements OnInit {
     });
   }
 
-  private onSubmitAdd() {
+  public onSubmitAdd() {
     this.retrieveValues();
     console.log("offer: ", this.offer);
     console.log(this.loginService.token);
