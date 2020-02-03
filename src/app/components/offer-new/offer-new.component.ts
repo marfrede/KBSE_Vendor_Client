@@ -28,8 +28,11 @@ export class OfferNewComponent implements OnInit {
     private messageService: MessageService
   ) { }
 
+
+
   ngOnInit() {
     if (!this.loginService.token) {
+      this.messageService.setMessage("Sie müssen angemeldet sein!");
       this.location.back();
     }
     this.offer = {};
@@ -54,22 +57,22 @@ export class OfferNewComponent implements OnInit {
       (badResponse) => {
         console.log(badResponse);
         switch (badResponse.status) {
-          case 400:
+          case 400://json error
             this.messageService.setMessageTimeout("Server JSON bad formatted Fehler. Versuche es später erneut.", 10000);
             break;
-          case 470:
+          case 470://token invalid
             this.router.navigate(['/login']).then(() => this.messageService.setMessage("Ihre Session ist abgelaufen. Bitte melden Sie sich erneut an.", true));
             break;
-          case 471:
+          case 471://token missing
             this.messageService.setMessage(badResponse.statusMessage);
             break;
-          case 475:
+          case 475://duplicate offer
             this.router.navigate(['/all']).then(() => this.messageService.setMessage("Sie haben bereits ein gleichnamiges Angebot erstellt. Sie können keine 2 Angebote mit dem selben Namen anbieten."));
             break;
-          case 476:
+          case 476://property missing
             this.messageService.setMessage(badResponse.body);
             break;
-          default:
+          default://e.x. 500 server error
             this.messageService.setMessage("Server Error >" + badResponse.status + " " + badResponse.statusMessage + "< " + badResponse.body);
             break;
         }

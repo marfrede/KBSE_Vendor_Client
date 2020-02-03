@@ -35,12 +35,11 @@
     </div>
     <control-messages [form]="form" [input]="'count'" [inputLabel]="'Menge'"></control-messages>
 
-    <button type="submit" class="btn btn-primary" [ngClass]="{'btn-secondary':!form.valid && clickedOnce}"
-        [disabled]="!form.valid && clickedOnce">Anbieten
-    </button>
-
     <div *ngIf="!form.valid && clickedOnce" class="alert alert-danger mt-2">
         Bitte die Felder ausfüllen!
     </div>
+
+    <button type="submit" class="mt-5 btn btn-block btn-primary" [ngClass]="{'btn-secondary':!form.valid && clickedOnce}"
+        [disabled]="!form.valid && clickedOnce">Anbieten
+    </button>
 </form>
-<button class="mt-5 btn btn-block btn-warning" routerLink="/register">Registrieren</button>
