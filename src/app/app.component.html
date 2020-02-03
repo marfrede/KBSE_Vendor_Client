@@ -1,12 +1,14 @@
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
-  <div class="left-content" [routerLink]="['']" style="cursor: pointer;">
+  <div class="left-content" [routerLink]="['']" style="cursor: pointer;" data-toggle="tooltip" data-placement="bottom"
+    title="Zur Startseite">
     <img width="75" alt="Easy Delivery Hawk Logo" src="../assets/icon/hawk.png" />
     <span>Easy Delivery Hawk</span>
   </div>
   <div class="right-content">
     <div *ngIf="loginService.token && loginService.user; else not_logged_in">
-      <div class="menu-button" [routerLink]="['/profile']">
+      <div class="menu-button" [routerLink]="['/profile']" data-toggle="tooltip" data-placement="bottom"
+        title="Zum Profil">
         <img src="../assets/icon/profile_black_green.png" width="40" alt="Zum Profil">
         <div class="name">
           <p>{{loginService.user.name}}</p>
@@ -15,7 +17,7 @@
     </div>
     <ng-template #not_logged_in>
       <img [routerLink]="['/login']" style="cursor: pointer;" src="../assets/icon/profile_grey.png" width="40"
-        alt="Zum Anmelden">
+        data-toggle="tooltip" data-placement="bottom" title="Einloggen" alt="Zum Anmelden">
     </ng-template>
   </div>
 </div>
