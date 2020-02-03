@@ -1,1 +1,30 @@
-<p>works</p>
+<div *ngIf="offers && offers.length; else noOffers">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Produktname</th>
+        <th scope="col">Preis</th>
+        <th scope="col">Gewicht</th>
+        <th scope="col">Anzahl</th>
+        <th scope="col">activ?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let offer of offers" routerLink="/offer/{{offer.id}}">
+        <th scope="row">{{offer.id}}</th>
+        <td>{{offer.name}}</td>
+        <td>{{offer.price}}</td>
+        <td>{{offer.kilogramm}}</td>
+        <td>{{offer.availableCount}}</td>
+        <td>{{offer.active}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #noOffers>
+  <h1>
+    Sie haben noch keine Angebote inseriert.
+  </h1>
+</ng-template>
+<app-messages></app-messages>
