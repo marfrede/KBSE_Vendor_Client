@@ -1,0 +1,14 @@
+<div *ngIf="inputLabel; else noLabel" class="alert alert-dismissible fade show" [ngClass]="{'alert-success': success, 'alert-warning': !success}">
+    <strong>{{inputLabel}}</strong>
+    <button class="close" (click)="clearMessage()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<ng-template #noLabel>
+    <div *ngIf="messageService.message" class="alert alert-dismissible fade show" [ngClass]="{'alert-success': messageService.success, 'alert-warning': !messageService.success}">
+        <strong>{{messageService.message}}</strong>
+        <button class="close" (click)="clearMessage()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</ng-template>
