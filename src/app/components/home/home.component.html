@@ -6,21 +6,29 @@
 <h3>Sie haben folgende Möglichkeiten:</h3>
 
 <div class="card-container">
-    <div class="card" [routerLink]="['/new']">
+    <div *ngIf="!loginService.token" class="card" [routerLink]="['/login']">
+        <div>Login</div>
+        <svg class="material-icons" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+        </svg>
+    </div>
+    <div *ngIf="loginService.token" class="card" [routerLink]="['/new']">
         <div>Neues Angebot</div>
         <svg class="material-icons" width="24" height="24" viewBox="0 0 24 24">
             <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
         </svg>
     </div>
-    <div class="card" [routerLink]="['/all']">
+    <div *ngIf="loginService.token" class="card" [routerLink]="['/all']">
         <div>Meine Angebote</div>
         <svg class="material-icons" width="24" height="24" viewBox="0 0 24 24">
             <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
         </svg>
     </div>
-    <a class="circle-link" title="Animations" href="http://localhost:8080/VirtuelleLebensmittel/" target="_blank"
+    <app-messages></app-messages>
+    <br>
+    <a *ngIf="frontendActive" class="circle-link" title="Zum Frontend" target="_blank" href="http://localhost:8080/VirtuelleLebensmittel/"
         rel="noopener">
         <img class="circle" width="20" src="../assets/icon/hawk.png">
         <p>Zur Käuferseite</p>
-    </a>
+    </a>    
 </div>

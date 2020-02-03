@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { OfferService } from '../../services/offer.service';
+import { LoginService } from '../../services/login.service';
+import { Location } from "@angular/common";
+import { Offer } from '../../model/offer';
+import { Router } from '@angular/router';
+import { MessageService } from '../../services/message.service';
 
 @Component({
   selector: 'app-offer-list',
@@ -8,13 +13,46 @@ import { OfferService } from '../../services/offer.service';
 })
 export class OfferListComponent implements OnInit {
 
-  testString:string;
+  offers: Offer[];
+  serverMessage: string;
 
   constructor(
-    private offerService:OfferService
+    private location: Location,
+    private router: Router,
+    private loginService: LoginService,
+    private offerService: OfferService,
+    public messageService: MessageService
   ) { }
 
   ngOnInit() {
+    if (!this.loginService.token) {
+      this.location.back();
+    } else {
+      console.log(this.loginService.token);
+      this.offerService.getOffers$().subscribe(
+        (goodResponse) => {
+          this.offers = goodResponse.body as unknown as Offer[];
+          console.log(this.offers[0]);
+        },
+        (badResponse) => {
+          console.log(badResponse);
+          switch (badResponse.status) {
+            case 400://bad formatted
+            this.messageService.setMessageTimeout("Server JSON bad formatted Fehler. Versuche es später erneut.", 10000);
+              break;
+            case 470://token invalid
+            this.router.navigate(['/login']).then(() => this.messageService.setMessage("Ihre Session ist abgelaufen. Bitte melden Sie sich erneut an.", true));
+              break;
+            case 471://token missing
+            this.messageService.setMessage(badResponse.statusMessage);
+              break;
+              default://e.x. 500 server error
+              this.messageService.setMessage("Server Error >" + badResponse.status + " " + badResponse.statusMessage + "< " + badResponse.body);
+              break;
+          }
+        }
+      );
+    }
   }
 
 }

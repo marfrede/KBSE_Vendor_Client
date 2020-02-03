@@ -1,1 +1,45 @@
-<p>offer-new works!</p>
+<h1 class="mb-5">Neues Angebot</h1>
+
+<app-messages></app-messages>
+
+<form [formGroup]="form" (ngSubmit)="onSubmitAdd()">
+    <h5>Produkt</h5>
+
+    <div class="form-group">
+        <label for="name">Produktname</label>
+        <input type="text" class="form-control" id="name" name="name" formControlName="name">
+    </div>
+    <control-messages [form]="form" [input]="'name'" [inputLabel]="'Produktname'"></control-messages>
+
+    <div class="form-group">
+      <label for="description">Beschreibung</label>
+      <textarea class="form-control" id="description" name="description" formControlName="description"></textarea>
+    </div>
+    <control-messages [form]="form" [input]="'description'" [inputLabel]="'Beschreibung'"></control-messages>
+
+    <div class="form-group">
+        <label for="price">Preis in Euro</label>
+        <input type="number" class="form-control" id="price" name="price" formControlName="price">
+    </div>
+    <control-messages [form]="form" [input]="'price'" [inputLabel]="'Preis'"></control-messages>
+
+    <div class="form-group">
+        <label for="kilogramm">Kilogramm</label>
+        <input type="number" class="form-control" id="kilogramm" name="kilogramm" formControlName="kilogramm">
+    </div>
+    <control-messages [form]="form" [input]="'kilogramm'" [inputLabel]="'Kilogramm'"></control-messages>
+
+    <h5>Menge</h5>
+    <div class="form-group">
+        <input type="number" class="form-control" id="count" name="count" formControlName="count">
+    </div>
+    <control-messages [form]="form" [input]="'count'" [inputLabel]="'Menge'"></control-messages>
+
+    <div *ngIf="!form.valid && clickedOnce" class="alert alert-danger mt-2">
+        Bitte die Felder ausfüllen!
+    </div>
+
+    <button type="submit" class="mt-5 btn btn-block btn-primary" [ngClass]="{'btn-secondary':!form.valid && clickedOnce}"
+        [disabled]="!form.valid && clickedOnce">Anbieten
+    </button>
+</form>

@@ -4,6 +4,7 @@ import { LoginService } from '../../services/login.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from "@angular/router";
 import { User } from '../../model/user';
+import { MessageService } from '../../services/message.service';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +18,8 @@ export class LoginComponent implements OnInit {
 
   profile: Profile;
 
-  serverMessage: string;
-
   constructor(
+    private messagesService:MessageService,
     private loginService: LoginService,
     private formBuilder: FormBuilder,
     private router: Router
@@ -28,13 +28,13 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.profile = {};
     this.form = this.formBuilder.group({
-      email: [null, [Validators.required, Validators.email, Validators.maxLength(50)]],
-      password: [null, [Validators.required, Validators.maxLength(50)]]
+      email: [null, [Validators.required, Validators.email]],
+      password: [null, [Validators.required]]
     });
   }
 
   onSubmitLogin() {
-    this.serverMessage = null;
+    this.messagesService.message = null;
     if (!this.form.valid) {
       this.clickedOnce = true;
       return;
@@ -49,26 +49,25 @@ export class LoginComponent implements OnInit {
       (badResponse) => {
         switch (badResponse.status) {
           case 400:
-            this.setServerMessage("json string bad formatted - Versuche es später erneut.");
+            this.messagesService.message = "json string bad formatted - Versuche es später erneut.";
             break;//bad formatted
           case 490:
-            this.setServerMessage(badResponse.error);
+            console.log("service:" + this.messagesService.message);
+            this.messagesService.message = badResponse.error;
+            console.log("service:" + this.messagesService.message);
             break;//username nonexistent
           case 491:
-            this.setServerMessage(badResponse.error);
+            this.messagesService.message = badResponse.error;
             break; //pwd wrong
           case 500:
             alert(badResponse.error);
             break;
           default:
-            this.setServerMessage(badResponse.error);
+            this.messagesService.message = badResponse.error;
             break;
         }
       }
     );
-  }
-  setServerMessage(newMessage: string) {
-    this.serverMessage = newMessage;
   }
 
   retrieveValues() {
