@@ -11,7 +11,6 @@ import { HttpClient } from '@angular/common/http';
 export class HomeComponent implements AfterViewInit {
 
   frontendActive:boolean;
-  warning:string;
 
   constructor(
     private location: Location,
@@ -21,6 +20,9 @@ export class HomeComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.frontendActive_().then(bool=>this.frontendActive=bool);
+    setInterval(()=>{
+      this.frontendActive_().then(bool=>this.frontendActive=bool);
+    }, 1000 * 30) //half a minute
   }
 
   frontendActive_():Promise<boolean> {
@@ -30,14 +32,6 @@ export class HomeComponent implements AfterViewInit {
         (e) => {resolve(false);}
       );
     });
-  }
-
-  setWarning() {
-    this.frontendActive_().then(bool=>this.frontendActive=bool);
-    this.warning = 'Frontend inaktiv!'
-    setTimeout(()=>{
-      this.warning = null;
-    }, 3000);
   }
 
 }
