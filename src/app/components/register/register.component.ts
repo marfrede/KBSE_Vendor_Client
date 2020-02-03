@@ -55,9 +55,9 @@ export class RegisterComponent implements OnInit {
       },
       (badResponse) => {
         switch (badResponse.status) {
-          case 400:
+          case 400://bad formatted
             this.messageService.setMessage("json string bad formatted - Versuche es später erneut.");
-            break;//bad formatted
+            break;
           case 480:
             this.messageService.setMessageTimeout(badResponse.error, 8000);
             break;//user gives ot enough input //e.x. street is missing

@@ -35,13 +35,13 @@ export class LoginService {
 
   public login$(profile: Profile): Observable<HttpResponse<string>> {
     let httpOptions = {
-      responseType: 'text' as 'text',
+      responseType: 'json' as 'json',
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
       observe: 'response' as 'response'
     };
-    return this.http.post(this.url + "login", JSON.stringify(profile), httpOptions);
+    return this.http.post<string>(this.url + "login", JSON.stringify(profile), httpOptions);
   }
 
   public logout$(): Observable<HttpResponse<string>> {
