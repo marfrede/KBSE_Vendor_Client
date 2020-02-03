@@ -13,7 +13,7 @@ import { Profile } from './model/profile';
 export class AppComponent implements OnInit {
   constructor(
     private cookieHelper: CookieService,
-    private loginService: LoginService,
+    public loginService: LoginService,
     private messageService: MessageService
   ) { }
   ngOnInit() {
