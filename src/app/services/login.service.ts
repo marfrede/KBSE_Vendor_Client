@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Profile } from '../model/profile';
 import { User } from '../model/user';
 import { Observable } from 'rxjs';
+import { CookieService } from "ngx-cookie-service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,49 +15,66 @@ export class LoginService {
   public user: User;
   public token: string;
 
-  private httpOptions = {
-    responseType: 'text' as 'text',
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    }),
-    observe: 'response' as 'response'
-  };
-
-  private httpOptionsPlain = {
-    responseType: 'text' as 'text',
-    headers: new HttpHeaders({
-      'Content-Type': 'text/plain'
-    }),
-    observe: 'response' as 'response'
-  };
-
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private cookiehelper: CookieService
   ) { }
 
   public register$(profile: Profile, user: User): Observable<HttpResponse<string>> {
+    let httpOptions = {
+      responseType: 'text' as 'text',
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      observe: 'response' as 'response'
+    };
     return this.http.post(
-      this.url + "register", //url
-      "[" + JSON.stringify(profile) + "," + JSON.stringify(user) + "]", //req body
-      this.httpOptions //options
+      this.url + "register", "[" + JSON.stringify(profile) + "," + JSON.stringify(user) + "]", httpOptions
     );
   }
 
   public login$(profile: Profile): Observable<HttpResponse<string>> {
-    return this.http.post(this.url + "login", JSON.stringify(profile), this.httpOptions);
+    let httpOptions = {
+      responseType: 'text' as 'text',
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      observe: 'response' as 'response'
+    };
+    return this.http.post(this.url + "login", JSON.stringify(profile), httpOptions);
   }
 
-  public logout$(): Observable<HttpResponse<string>>{
-    return this.http.post(this.url + "logout", this.token, this.httpOptionsPlain);
+  public logout$(): Observable<HttpResponse<string>> {
+    let httpOptionsPlain = {
+      responseType: 'text' as 'text',
+      headers: new HttpHeaders({
+        'Content-Type': 'text/plain'
+      }),
+      observe: 'response' as 'response'
+    };
+    return this.http.post(this.url + "logout", this.token, httpOptionsPlain);
   }
 
-  setLoggedIn(user: User, profile:Profile, token: string): void {
+  public verifyToken$(token: string): Observable<HttpResponse<string>> {
+    let httpOptions = {
+      responseType: 'json' as 'json',
+      headers: new HttpHeaders({
+        'Authorization':`Bearer ${token}`
+      }),
+      observe: 'response' as 'response'
+    };
+    return this.http.get<string>(this.url + "user", httpOptions);
+  }
+
+  setLoggedIn(user: User, profile: Profile, token: string): void {
     this.token = token;
+    this.cookiehelper.set('TOKEN', token, 1);
     this.user = user;
     this.profile = profile;
   }
   setLoggedOut(): void {
     this.token = null;
+    this.cookiehelper.delete('TOKEN');
     this.user = null;
     this.profile = null;
   }
