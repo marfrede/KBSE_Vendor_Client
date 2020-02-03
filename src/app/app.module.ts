@@ -14,7 +14,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { RegisterComponent } from './components/register/register.component';
 import { FormMessagesComponent } from './components/form-messages/form-messages.component';
-import { ServerMessagesComponent } from './components/server-messages/server-messages.component';
+import { MessagesComponent } from './components/messages/messages.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
@@ -28,7 +28,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     HomeComponent,
     RegisterComponent,
     FormMessagesComponent,
-    ServerMessagesComponent,
+    MessagesComponent,
     ProfileComponent
   ],
   imports: [
