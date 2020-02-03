@@ -13,7 +13,7 @@ export class OfferService {
 
   constructor(
     private http: HttpClient,
-    private loginService: LoginService
+    public loginService: LoginService
   ) { }
 
   public getOffers$(): Observable<HttpResponse<string>> {
