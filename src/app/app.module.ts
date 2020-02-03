@@ -16,6 +16,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { FormMessagesComponent } from './components/form-messages/form-messages.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { CookieService } from "ngx-cookie-service";
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     ReactiveFormsModule
   ],
   providers: [
+    CookieService
   ],
   bootstrap: [AppComponent]
 })
