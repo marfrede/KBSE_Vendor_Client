@@ -4,6 +4,7 @@ import { Profile } from '../../model/profile';
 import { LoginService } from '../../services/login.service';
 import { FormGroup, FormBuilder, Validators, Form } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from '../../services/message.service';
 
 @Component({
   selector: 'app-register',
@@ -18,9 +19,8 @@ export class RegisterComponent implements OnInit {
   form: FormGroup;
   clickedOnce: boolean;
 
-  serverMessage: string;
-
   constructor(
+    private messageService: MessageService,
     private loginService: LoginService,
     private formBuilder: FormBuilder,
     private router: Router
@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmitRegister() {
-    this.serverMessage = null;
+    this.messageService.clearMessage();
     if (!this.form.valid) {
       this.clickedOnce = true;
       return;
@@ -56,31 +56,25 @@ export class RegisterComponent implements OnInit {
       (badResponse) => {
         switch (badResponse.status) {
           case 400:
-            this.setServerMessage("json string bad formatted - Versuche es später erneut.");
+            this.messageService.setMessage("json string bad formatted - Versuche es später erneut.");
             break;//bad formatted
           case 480:
-            this.setServerMessage(badResponse.error);
+            this.messageService.setMessageTimeout(badResponse.error, 8000);
             break;//user gives ot enough input //e.x. street is missing
           case 481:
-            this.setServerMessage(badResponse.error);
+            this.messageService.setMessage(badResponse.error);
             break; //username or pwd null or too short
           case 482:
-            this.setServerMessage(badResponse.error);
+            this.messageService.setMessage(badResponse.error);
             break; //username already in use
           case 500:
             alert(badResponse.error);
             break;
           default:
-            this.setServerMessage(badResponse.error);
+            this.messageService.setMessageTimeout(badResponse.error, 10000);
             break;
         }
       });
-  }
-  setServerMessage(newMessage: string) {
-    this.serverMessage = newMessage;
-    setTimeout(() => {
-      this.serverMessage = null;
-    }, 5000);
   }
 
   retrieveValues() {
