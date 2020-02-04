@@ -13,7 +13,6 @@ export class HomeComponent implements AfterViewInit {
   frontendActive:boolean;
 
   constructor(
-    private location: Location,
     public loginService: LoginService,
     private http: HttpClient
   ) { }

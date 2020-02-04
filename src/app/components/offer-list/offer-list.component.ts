@@ -17,9 +17,9 @@ export class OfferListComponent implements OnInit {
   serverMessage: string;
 
   constructor(
+    public loginService: LoginService,
     private location: Location,
     private router: Router,
-    private loginService: LoginService,
     private offerService: OfferService,
     public messageService: MessageService
   ) { }

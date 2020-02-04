@@ -20,8 +20,8 @@ export class LoginComponent implements OnInit {
   profile: Profile;
 
   constructor(
+    public loginService: LoginService,
     private messageService:MessageService,
-    private loginService: LoginService,
     private formBuilder: FormBuilder,
     private router: Router
   ) { }

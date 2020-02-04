@@ -13,8 +13,7 @@ import { Profile } from './model/profile';
 export class AppComponent implements OnInit {
   constructor(
     private cookieHelper: CookieService,
-    public loginService: LoginService,
-    private messageService: MessageService
+    public loginService: LoginService
   ) { }
   ngOnInit() {
     let token = this.cookieHelper.get('TOKEN');

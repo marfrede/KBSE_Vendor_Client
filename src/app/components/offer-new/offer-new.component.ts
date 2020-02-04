@@ -20,10 +20,10 @@ export class OfferNewComponent implements OnInit {
   offer: Offer;
 
   constructor(
+    public loginService: LoginService,
     private location: Location,
     private router: Router,
     private formBuilder: FormBuilder,
-    private loginService: LoginService,
     private offerService: OfferService,
     private messageService: MessageService
   ) { }

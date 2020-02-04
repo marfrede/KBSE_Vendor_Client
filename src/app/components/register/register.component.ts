@@ -20,8 +20,8 @@ export class RegisterComponent implements OnInit {
   clickedOnce: boolean;
 
   constructor(
+    public loginService: LoginService,
     private messageService: MessageService,
-    private loginService: LoginService,
     private formBuilder: FormBuilder,
     private router: Router
   ) { }
