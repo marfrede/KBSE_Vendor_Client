@@ -41,7 +41,7 @@ export class OfferListComponent implements OnInit {
             }
             return 0;
           });
-          console.log(this.offers[0]);
+          console.log(this.offers);
         },
         (badResponse) => {
           console.log(badResponse);
