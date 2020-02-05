@@ -17,7 +17,6 @@ import { FormMessagesComponent } from './components/form-messages/form-messages.
 import { MessagesComponent } from './components/messages/messages.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CookieService } from "ngx-cookie-service";
-import { PricePipe } from './pipes/price.pipe';
 import { WeightPipe } from './pipes/weight.pipe';
 
 @NgModule({
@@ -33,7 +32,6 @@ import { WeightPipe } from './pipes/weight.pipe';
     FormMessagesComponent,
     MessagesComponent,
     ProfileComponent,
-    PricePipe,
     WeightPipe
   ],
   imports: [
