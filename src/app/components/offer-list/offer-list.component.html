@@ -7,7 +7,7 @@
         <th scope="col">Preis</th>
         <th scope="col">Gewicht</th>
         <th scope="col">Anzahl</th>
-        <th scope="col">aktiv</th>
+        <th scope="col" data-toggle="tooltip" data-placement="top" title="Gibt an, ob ein Angebot für Kunden erwerblich und somit für Sie verbindlich ist.">aktiv</th>
       </tr>
     </thead>
     <tbody>
@@ -18,8 +18,10 @@
         <td>{{offer.kilogramm | weight}}</td>
         <td>{{offer.availableCount}}</td>
         <td>
-          <img *ngIf="offer.active" width="20px" src="../../../assets/icon/check.png" alt="Angebot ist aktiv">
-          <img *ngIf="!offer.active" width="20px" src="../../../assets/icon/close.png" alt="Angebot ist inaktiv">
+          <img *ngIf="offer.active" width="20px" src="../../../assets/icon/check.png" alt="Angebot ist aktiv"
+            data-toggle="tooltip" data-placement="right" title="Dieses Angebot ist aktiv">
+          <img *ngIf="!offer.active" width="20px" src="../../../assets/icon/close.png" alt="Angebot ist inaktiv"
+            data-toggle="tooltip" data-placement="right" title="Dieses Angebot ist nicht aktiv">
         </td>
       </tr>
     </tbody>

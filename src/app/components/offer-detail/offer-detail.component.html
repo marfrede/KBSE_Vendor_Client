@@ -2,8 +2,8 @@
     <h1 class="mb-5">
         <span *ngIf="offerName">#{{offerId}}
             {{offerName}}&nbsp;
-            <img *ngIf="offerStatus" width="30px" src="../../../assets/icon/check.png" alt="Angebot ist aktiv">
-            <img *ngIf="!offerStatus" width="30px" src="../../../assets/icon/close.png" alt="Angebot ist inaktiv">
+            <img *ngIf="offerActive" width="30px" src="../../../assets/icon/check.png" alt="Angebot ist aktiv">
+            <img *ngIf="!offerActive" width="30px" src="../../../assets/icon/close.png" alt="Angebot ist inaktiv">
         </span>
     </h1>
     <app-messages></app-messages>
@@ -24,17 +24,23 @@
         </div>
         <control-messages [form]="form" [input]="'description'" [inputLabel]="'Beschreibung'"></control-messages>
 
-        <div class="form-group">
-            <label for="price">Preis in Euro</label>
-            <input type="number" class="form-control" id="price" name="price" formControlName="price">
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="price">Preis in Euro</label>
+                    <input type="number" class="form-control" id="price" name="price" formControlName="price">
+                </div>
+                <control-messages [form]="form" [input]="'price'" [inputLabel]="'Preis'"></control-messages>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="kilogramm">Kilogramm</label>
+                    <input type="number" class="form-control" id="kilogramm" name="kilogramm"
+                        formControlName="kilogramm">
+                </div>
+                <control-messages [form]="form" [input]="'kilogramm'" [inputLabel]="'Kilogramm'"></control-messages>
+            </div>
         </div>
-        <control-messages [form]="form" [input]="'price'" [inputLabel]="'Preis'"></control-messages>
-
-        <div class="form-group">
-            <label for="kilogramm">Kilogramm</label>
-            <input type="number" class="form-control" id="kilogramm" name="kilogramm" formControlName="kilogramm">
-        </div>
-        <control-messages [form]="form" [input]="'kilogramm'" [inputLabel]="'Kilogramm'"></control-messages>
 
         <h5 for="kilogramm">Menge</h5>
         <div class="form-group">
@@ -49,6 +55,8 @@
             Angebot inserieren
         </button>
 
+        <hr />
+
         <button type="submit" class="mt-5 btn btn-block btn-primary"
             [ngClass]="{'btn-secondary':!form.valid && clickedOnce}" [disabled]="!form.valid && clickedOnce">
             Änderungen speichern
@@ -58,4 +66,8 @@
             Bitte die Felder ausfüllen!
         </div>
     </form>
+
+    <button class="mt-1 btn btn-block btn-warning" (click)="location.back()">
+        Abbrechen
+    </button>
 </div>
