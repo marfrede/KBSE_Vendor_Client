@@ -11,6 +11,7 @@ import { Profile } from './model/profile';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  done:boolean = false;
   constructor(
     private cookieHelper: CookieService,
     public loginService: LoginService
@@ -26,8 +27,10 @@ export class AppComponent implements OnInit {
         },
         (badResponse) => {
           console.log(badResponse);
+          this.done = true;
           switch (badResponse.status) {
             case 400://bad formatted
+              
               break;
             case 470://token invalid
               console.log("found token but it is invalid now");
@@ -48,7 +51,7 @@ export class AppComponent implements OnInit {
     try {
       let user: User = body[0];
       let profile: Profile = body[1];
-      this.loginService.setLoggedIn(user, profile, token);
+      this.loginService.setLoggedIn(user, profile, token).then(()=>this.done = true);
       console.log("user logged in", user, "token", token);
     }
     catch (e) {

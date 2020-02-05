@@ -61,18 +61,21 @@ export class LoginService {
     let httpOptions = {
       responseType: 'json' as 'json',
       headers: new HttpHeaders({
-        'Authorization':`Bearer ${token}`
+        'Authorization': `Bearer ${token}`
       }),
       observe: 'response' as 'response'
     };
     return this.http.get<string>(this.url + "user", httpOptions);
   }
 
-  setLoggedIn(user: User, profile: Profile, token: string): void {
-    this.token = token;
-    this.cookiehelper.set('TOKEN', token, 1);
-    this.user = user;
-    this.profile = profile;
+  setLoggedIn(user: User, profile: Profile, token: string): Promise<any> {
+    return new Promise<any>((resolve) => {
+      this.token = token;
+      this.cookiehelper.set('TOKEN', token, 1);
+      this.user = user;
+      this.profile = profile;
+      resolve();
+    });
   }
   setLoggedOut(): void {
     this.user = null;
