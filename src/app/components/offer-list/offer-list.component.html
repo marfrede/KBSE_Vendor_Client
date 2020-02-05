@@ -7,7 +7,7 @@
         <th scope="col">Preis</th>
         <th scope="col">Gewicht</th>
         <th scope="col">Anzahl</th>
-        <th scope="col">activ?</th>
+        <th scope="col">aktiv</th>
       </tr>
     </thead>
     <tbody>
@@ -17,7 +17,10 @@
         <td>{{offer.price}}</td>
         <td>{{offer.kilogramm}}</td>
         <td>{{offer.availableCount}}</td>
-        <td>{{offer.active}}</td>
+        <td>
+          <img *ngIf="offer.active" width="20px" src="../../../assets/icon/check.png" alt="Angebot ist aktiv">
+          <img *ngIf="!offer.active" width="20px" src="../../../assets/icon/close.png" alt="Angebot ist inaktiv">
+        </td>
       </tr>
     </tbody>
   </table>
