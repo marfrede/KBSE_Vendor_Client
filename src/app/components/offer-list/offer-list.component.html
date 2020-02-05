@@ -14,8 +14,8 @@
       <tr *ngFor="let offer of offers" routerLink="/offer/{{offer.id}}">
         <th scope="row">{{offer.id}}</th>
         <td>{{offer.name}}</td>
-        <td>{{offer.price}}</td>
-        <td>{{offer.kilogramm}}</td>
+        <td>{{offer.price | currency:'EUR':'symbol':'1.2-2'}}</td>
+        <td>{{offer.kilogramm | weight}}</td>
         <td>{{offer.availableCount}}</td>
         <td>
           <img *ngIf="offer.active" width="20px" src="../../../assets/icon/check.png" alt="Angebot ist aktiv">
