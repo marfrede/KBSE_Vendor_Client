@@ -52,8 +52,7 @@ export class LoginService {
       }),
       observe: 'response' as 'response'
     };
-    this.token = null;
-    this.cookiehelper.delete('TOKEN');
+    this.resetToken();
     return this.http.post(this.url + "logout", this.token, httpOptionsPlain);
   }
 
@@ -68,7 +67,7 @@ export class LoginService {
     return this.http.get<string>(this.url + "user", httpOptions);
   }
 
-  setLoggedIn(user: User, profile: Profile, token: string): Promise<any> {
+  public setLoggedIn(user: User, profile: Profile, token: string): Promise<any> {
     return new Promise<any>((resolve) => {
       this.token = token;
       this.cookiehelper.set('TOKEN', token, 1);
@@ -77,9 +76,13 @@ export class LoginService {
       resolve();
     });
   }
-  setLoggedOut(): void {
+  public setLoggedOut(): void {
     this.user = null;
     this.profile = null;
+  }
+  public resetToken() {
+    this.token = null;
+    this.cookiehelper.delete('TOKEN');
   }
 
 }

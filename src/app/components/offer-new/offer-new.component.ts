@@ -65,6 +65,7 @@ export class OfferNewComponent implements OnInit {
             break;
           case 470://token invalid
             console.log("token expired.");
+            this.loginService.resetToken();
             this.router.navigate(['/login']).then(() => this.messageService.setMessage("Ihre Session ist abgelaufen. Bitte melden Sie sich erneut an.", true));
             break;
           case 471://token missing

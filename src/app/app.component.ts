@@ -35,6 +35,7 @@ export class AppComponent implements OnInit {
               break;
             case 470://token invalid
               console.log("found token but it is invalid now");
+              this.loginService.resetToken();
               alert("Ihre Session ist abgelaufen. Bitte melden Sie sich erneut an.");
               break;
             case 471://token missing

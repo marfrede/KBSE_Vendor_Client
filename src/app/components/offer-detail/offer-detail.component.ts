@@ -5,6 +5,7 @@ import { OfferService } from '../../services/offer.service';
 import { Location } from '@angular/common';
 import { MessageService } from '../../services/message.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-offer-detail',
@@ -25,7 +26,8 @@ export class OfferDetailComponent implements OnInit {
     private offerService: OfferService,
     private location: Location,
     private messageService: MessageService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public loginService: LoginService
   ) { }
 
   ngOnInit(): void {
@@ -56,6 +58,7 @@ export class OfferDetailComponent implements OnInit {
               break;
             case 470://token invalid
               console.log("token expired.");
+              this.loginService.resetToken();
               this.router.navigate(['/login']).then(() => this.messageService.setMessage("Ihre Session ist abgelaufen. Bitte melden Sie sich erneut an.", true));
               resolve(null);
               break;
@@ -100,6 +103,7 @@ export class OfferDetailComponent implements OnInit {
             break;
           case 470://token invalid
             console.log("token expired.");
+            this.loginService.resetToken();
             this.router.navigate(['/login']).then(() => this.messageService.setMessage("Ihre Session ist abgelaufen. Bitte melden Sie sich erneut an.", true));
             break;
           case 471://token missing
