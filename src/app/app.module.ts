@@ -17,6 +17,7 @@ import { FormMessagesComponent } from './components/form-messages/form-messages.
 import { MessagesComponent } from './components/messages/messages.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CookieService } from "ngx-cookie-service";
+import { PricePipe } from './pipes/price.pipe';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { CookieService } from "ngx-cookie-service";
     RegisterComponent,
     FormMessagesComponent,
     MessagesComponent,
-    ProfileComponent
+    ProfileComponent,
+    PricePipe
   ],
   imports: [
     BrowserModule,
