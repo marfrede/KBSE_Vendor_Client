@@ -28,8 +28,6 @@ export class OfferNewComponent implements OnInit {
     private messageService: MessageService
   ) { }
 
-
-
   ngOnInit() {
     if (!this.loginService.token) {
       this.messageService.setMessage("Sie müssen angemeldet sein!");
@@ -46,6 +44,11 @@ export class OfferNewComponent implements OnInit {
   }
 
   public onSubmitAdd() {
+    this.messageService.clearMessage();
+    if (!this.form.valid) {
+      this.clickedOnce = true;
+      return;
+    }
     this.retrieveValues();
     console.log("offer: ", this.offer);
     console.log(this.loginService.token);
@@ -61,6 +64,7 @@ export class OfferNewComponent implements OnInit {
             this.messageService.setMessageTimeout("Server JSON bad formatted Fehler. Versuche es später erneut.", 10000);
             break;
           case 470://token invalid
+            console.log("token expired.");
             this.router.navigate(['/login']).then(() => this.messageService.setMessage("Ihre Session ist abgelaufen. Bitte melden Sie sich erneut an.", true));
             break;
           case 471://token missing
@@ -80,7 +84,7 @@ export class OfferNewComponent implements OnInit {
     );
   }
 
-  private retrieveValues() {
+  private retrieveValues():void {
     this.offer.name = this.form.get('name').value;
     this.offer.price = this.form.get('price').value;
     this.offer.description = this.form.get('description').value;
