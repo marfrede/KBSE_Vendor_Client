@@ -71,7 +71,7 @@ export class OfferDetailComponent implements OnInit {
               resolve(null);
               break;
             default://e.x. 500 server error
-              this.router.navigate(['all']).then(() => this.messageService.setMessage("Server Error >" + badResponse.status + " " + badResponse.statusMessage + "< " + badResponse.body));
+              this.router.navigate(['home']).then(() => this.messageService.setMessage("Server Error >" + badResponse.status + " " + badResponse.statusMessage + "< " + badResponse.body));
               resolve(null);
               break;
           }
@@ -113,7 +113,7 @@ export class OfferDetailComponent implements OnInit {
             this.router.navigate(['home']).then(() => this.messageService.setMessage(badResponse.statusMessage));
             break;
           default://e.x. 500 server error
-            this.router.navigate(['all']).then(() => this.messageService.setMessage("Server Error >" + badResponse.status + " " + badResponse.statusMessage + "< " + badResponse.body));
+            this.router.navigate(['home']).then(() => this.messageService.setMessage("Server Error >" + badResponse.status + " " + badResponse.statusMessage + "< " + badResponse.body));
             break;
         }
       }

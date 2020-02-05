@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
             this.messageService.setMessage(badResponse.body);
             break; 
           default:
-            alert(badResponse.error);
+            alert(badResponse.error + badResponse.status + badResponse.statusMessage + "\n Ein Server Error liegt vor! \nBitte starten Sie den Server.");
             break;
         }
       }

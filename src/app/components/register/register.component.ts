@@ -71,7 +71,8 @@ export class RegisterComponent implements OnInit {
             alert(badResponse.error);
             break;
           default:
-            this.messageService.setMessageTimeout(badResponse.error, 10000);
+            alert(badResponse.error + badResponse.status + badResponse.statusMessage + "\n Ein Server Error liegt vor! \nBitte starten Sie den Server.");
+            this.messageService.setMessageTimeout(badResponse.statusMessage, 10000);
             break;
         }
       });
