@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from './services/login.service';
 import { CookieService } from "ngx-cookie-service";
-import { MessageService } from './services/message.service';
 import { User } from './model/user';
 import { Profile } from './model/profile';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -14,7 +14,8 @@ export class AppComponent implements OnInit {
   done:boolean = false;
   constructor(
     private cookieHelper: CookieService,
-    public loginService: LoginService
+    public loginService: LoginService,
+    private router: Router
   ) { }
   ngOnInit() {
     let token = this.cookieHelper.get('TOKEN');
@@ -28,12 +29,13 @@ export class AppComponent implements OnInit {
         (badResponse) => {
           console.log(badResponse);
           this.done = true;
+          this.router.navigate(['home']);
           switch (badResponse.status) {
             case 400://bad formatted
-              
               break;
             case 470://token invalid
               console.log("found token but it is invalid now");
+              alert("Ihre Session ist abgelaufen. Bitte melden Sie sich erneut an.");
               break;
             case 471://token missing
               console.log("token missing");
@@ -44,6 +46,9 @@ export class AppComponent implements OnInit {
           }
         }
       );
+    }
+    else {
+      this.done = true;
     }
   }
 
