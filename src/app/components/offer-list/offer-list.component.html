@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let offer of offers" routerLink="/offer/{{offer.id}}">
+      <tr *ngFor="let offer of offers" routerLink="/offer/{{offer.id}}" class="offer">
         <th scope="row">{{offer.id}}</th>
         <td>{{offer.name}}</td>
         <td>{{offer.price | currency:'EUR':'symbol':'1.2-2'}}</td>
