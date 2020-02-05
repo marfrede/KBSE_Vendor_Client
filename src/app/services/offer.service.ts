@@ -27,7 +27,7 @@ export class OfferService {
     return this.http.get<string>(this.url + "offers", httpOptions);
   }
 
-  getOffer$(id: number):Observable<HttpResponse<string>>{
+  getOffer$(offer_id: number): Observable<HttpResponse<string>> {
     let httpOptions = {
       responseType: 'json' as 'json',
       headers: new HttpHeaders({
@@ -35,7 +35,7 @@ export class OfferService {
       }),
       observe: 'response' as 'response'
     };
-    return this.http.get<string>(this.url + `offers/${id}`, httpOptions);
+    return this.http.get<string>(this.url + `offers/${offer_id}`, httpOptions);
   }
 
   public addOffer$(offer: Offer): Observable<HttpResponse<Object>> {
@@ -49,5 +49,16 @@ export class OfferService {
     return this.http.post(this.url + "offers", JSON.stringify(offer), httpOptions);
   }
 
+  updateOffer$(offer: Offer): Observable<HttpResponse<Object>> {
+    console.log("id in service:", offer.id);
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${this.loginService.token}`,
+        'Content-Type': 'application/json'
+      }),
+      observe: 'response' as 'response'
+    };
+    return this.http.put(this.url + `offers/${offer.id}`, JSON.stringify(offer), httpOptions);
+  }
 
 }

@@ -52,6 +52,8 @@ export class LoginService {
       }),
       observe: 'response' as 'response'
     };
+    this.token = null;
+    this.cookiehelper.delete('TOKEN');
     return this.http.post(this.url + "logout", this.token, httpOptionsPlain);
   }
 
@@ -73,8 +75,6 @@ export class LoginService {
     this.profile = profile;
   }
   setLoggedOut(): void {
-    this.token = null;
-    this.cookiehelper.delete('TOKEN');
     this.user = null;
     this.profile = null;
   }
