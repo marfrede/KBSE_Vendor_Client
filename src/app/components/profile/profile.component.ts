@@ -31,8 +31,8 @@ export class ProfileComponent implements OnInit {
       this.loginService.logout$().subscribe(
         (response) => {
           this.location.back();
-          console.log(response);
           this.loginService.setLoggedOut();
+          console.log("succeeded to logout:", response);
         }
       );
     }

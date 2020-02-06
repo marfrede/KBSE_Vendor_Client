@@ -51,13 +51,14 @@ export class OfferDetailComponent implements OnInit {
           resolve(offer);
         },
         (badResponse) => {
+          console.log("failed during getOffer:", badResponse);
           switch (badResponse.status) {
             case 400://json error
               this.router.navigate(['all']).then(() => this.messageService.setMessageTimeout("Server JSON bad formatted Fehler. Versuche es später erneut.", 10000));
               resolve(null);
               break;
             case 470://token invalid
-              console.log("token expired.");
+              console.log("failed during getOffer: token expired.");
               this.loginService.resetToken();
               this.router.navigate(['/login']).then(() => this.messageService.setMessage("Ihre Session ist abgelaufen. Bitte melden Sie sich erneut an.", true));
               resolve(null);
@@ -71,7 +72,7 @@ export class OfferDetailComponent implements OnInit {
               resolve(null);
               break;
             default://e.x. 500 server error
-              this.router.navigate(['home']).then(() => this.messageService.setMessage("Server Error >" + badResponse.status + " " + badResponse.statusMessage + "< " + badResponse.body));
+              this.router.navigate(['home']).then(() => this.messageService.setMessage("Server Error >" + badResponse.status + " " + badResponse.statusMessage + "< " + badResponse.error));
               resolve(null);
               break;
           }
@@ -92,17 +93,17 @@ export class OfferDetailComponent implements OnInit {
   private submit(offer: Offer) {
     this.offerService.updateOffer$(offer).subscribe(
       (goodResponse) => {
-        console.log(goodResponse);
+        console.log("succeeded to modifyOffer:", goodResponse);
         this.goBack();
       },
       (badResponse) => {
-        console.log(badResponse);
+        console.log("failed to modifyOffer:", badResponse);
         switch (badResponse.status) {
           case 400://json error
             this.router.navigate(['all']).then(() => this.messageService.setMessageTimeout("Server JSON bad formatted Fehler. Versuche es später erneut.", 10000));
             break;
           case 470://token invalid
-            console.log("token expired.");
+            console.log("failed during modifyOffer: token expired.");
             this.loginService.resetToken();
             this.router.navigate(['/login']).then(() => this.messageService.setMessage("Ihre Session ist abgelaufen. Bitte melden Sie sich erneut an.", true));
             break;
@@ -113,7 +114,7 @@ export class OfferDetailComponent implements OnInit {
             this.router.navigate(['home']).then(() => this.messageService.setMessage(badResponse.statusMessage));
             break;
           default://e.x. 500 server error
-            this.router.navigate(['home']).then(() => this.messageService.setMessage("Server Error >" + badResponse.status + " " + badResponse.statusMessage + "< " + badResponse.body));
+            this.router.navigate(['home']).then(() => this.messageService.setMessage("Server Error >" + badResponse.status + " " + badResponse.statusMessage + "< " + badResponse.error));
             break;
         }
       }
@@ -150,7 +151,6 @@ export class OfferDetailComponent implements OnInit {
     offer.description = this.form.get('description').value;
     offer.kilogramm = this.form.get('kilogramm').value;
     offer.availableCount = this.form.get('count').value;
-    console.log("retruebe:", offer);
     return offer;
   }
 

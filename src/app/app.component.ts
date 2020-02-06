@@ -20,14 +20,14 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     let token = this.cookieHelper.get('TOKEN');
     if (token) {
-      console.log("token found!", token);
+      console.log("found token in cookies: " + token);
       this.loginService.verifyToken$(token).subscribe(
         (goodResponse) => {
-          console.log(goodResponse);
+          console.log("succeeded to verifyToken (user still logged in):", goodResponse);
           this.handleOK(goodResponse.body as unknown as any[], token);
         },
         (badResponse) => {
-          console.log(badResponse);
+          console.log("failed to verifyToken (user not logged in anymore):", badResponse);
           this.done = true;
           this.router.navigate(['home']);
           switch (badResponse.status) {
@@ -39,10 +39,10 @@ export class AppComponent implements OnInit {
               alert("Ihre Session ist abgelaufen. Bitte melden Sie sich erneut an.");
               break;
             case 471://token missing
-              console.log("token missing");
+              console.log("failed to verifyToken (token missing)");
               break;
             default:
-              console.log("server error: " + badResponse.body);
+              console.log("server error: " + badResponse);
               break;
           }
         }
@@ -58,7 +58,7 @@ export class AppComponent implements OnInit {
       let user: User = body[0];
       let profile: Profile = body[1];
       this.loginService.setLoggedIn(user, profile, token).then(()=>this.done = true);
-      console.log("user logged in", user, "token", token);
+      console.log("user logged in: ", user, "with token", token);
     }
     catch (e) {
       console.log("Server Fehler! Bitte später nochmal versuchen!", e);

@@ -50,21 +50,19 @@ export class OfferNewComponent implements OnInit {
       return;
     }
     this.retrieveValues();
-    console.log("offer: ", this.offer);
-    console.log(this.loginService.token);
     this.offerService.addOffer$(this.offer).subscribe(
       (goodResponse) => {
-        console.log(goodResponse);
+        console.log("succeeded to addNewOffer:", goodResponse);
         this.router.navigate(['/all']).then(() => this.messageService.setMessageTimeout("Sie haben ein neues Angebot erstellt.", 10000, true));
       },
       (badResponse) => {
-        console.log(badResponse);
+        console.log("failed to addNewOffer:", badResponse);
         switch (badResponse.status) {
           case 400://json error
             this.messageService.setMessageTimeout("Server JSON bad formatted Fehler. Versuche es später erneut.", 10000);
             break;
           case 470://token invalid
-            console.log("token expired.");
+            console.log("failed during addNewOffer: token expired.");
             this.loginService.resetToken();
             this.router.navigate(['/login']).then(() => this.messageService.setMessage("Ihre Session ist abgelaufen. Bitte melden Sie sich erneut an.", true));
             break;
@@ -75,10 +73,10 @@ export class OfferNewComponent implements OnInit {
             this.router.navigate(['/all']).then(() => this.messageService.setMessage("Sie haben bereits ein gleichnamiges Angebot erstellt. Sie können keine 2 Angebote mit dem selben Namen anbieten."));
             break;
           case 476://property missing
-            this.messageService.setMessage(badResponse.body);
+            this.messageService.setMessage(badResponse.error);
             break;
           default://e.x. 500 server error
-            this.messageService.setMessage("Server Error >" + badResponse.status + " " + badResponse.statusMessage + "< " + badResponse.body);
+            this.messageService.setMessage("Server Error >" + badResponse.status + " " + badResponse.statusMessage + "< " + badResponse.error);
             break;
         }
       }

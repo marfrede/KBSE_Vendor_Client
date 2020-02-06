@@ -16,6 +16,6 @@ export class FormMessagesComponent implements OnInit {
   }
 
   public logErrors(){
-    console.log(this.input,this.form.get(this.input).errors);
+    console.log("error with user input: " + this.input,this.form.get(this.input).errors);
   }
 }

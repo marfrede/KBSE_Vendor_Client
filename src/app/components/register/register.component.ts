@@ -50,10 +50,11 @@ export class RegisterComponent implements OnInit {
     this.retrieveValues();
     this.loginService.register$(this.profile, this.user).subscribe(
       (goodResponse) => {
-        console.log("response:", goodResponse);
+        console.log("succeeded to register:", goodResponse);
         this.handleOK(goodResponse.body);
       },
       (badResponse) => {
+        console.log("failed to register:", badResponse);
         switch (badResponse.status) {
           case 400://bad formatted
             this.messageService.setMessage("json string bad formatted - Versuche es später erneut.");

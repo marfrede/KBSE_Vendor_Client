@@ -28,9 +28,9 @@ export class OfferListComponent implements OnInit {
     if (!this.loginService.token) {
       this.location.back();
     } else {
-      console.log(this.loginService.token);
       this.offerService.getOffers$().subscribe(
         (goodResponse) => {
+          console.log("succeeded to getAllOffers:", goodResponse);
           this.offers = goodResponse.body as unknown as Offer[];
           this.offers.sort((o1, o2) => {
             if (o1.active && !o2.active) {
@@ -41,16 +41,15 @@ export class OfferListComponent implements OnInit {
             }
             return 0;
           });
-          console.log(this.offers);
         },
         (badResponse) => {
-          console.log(badResponse);
+          console.log("failed during getAllOffers:", badResponse);
           switch (badResponse.status) {
             case 400://bad formatted
               this.messageService.setMessageTimeout("Server JSON bad formatted Fehler. Versuche es später erneut.", 10000);
               break;
             case 470://token invalid
-              console.log("token expired.");
+              console.log("failed during getAllOffer: token expired.");
               this.loginService.resetToken();
               this.router.navigate(['/login']).then(() => this.messageService.setMessage("Ihre Session ist abgelaufen. Bitte melden Sie sich erneut an.", true));
               break;
@@ -58,7 +57,7 @@ export class OfferListComponent implements OnInit {
               this.messageService.setMessage(badResponse.statusMessage);
               break;
             default://e.x. 500 server error
-              this.messageService.setMessage("Server Error >" + badResponse.status + " " + badResponse.statusMessage + "< " + badResponse.body);
+              this.messageService.setMessage("Server Error >" + badResponse.status + " " + badResponse.statusMessage + "< " + badResponse.error);
               break;
           }
         }

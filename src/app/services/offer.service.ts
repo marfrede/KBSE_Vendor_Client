@@ -50,7 +50,6 @@ export class OfferService {
   }
 
   updateOffer$(offer: Offer): Observable<HttpResponse<Object>> {
-    console.log("id in service:", offer.id);
     let httpOptions = {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${this.loginService.token}`,

@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public loginService: LoginService,
-    private messageService:MessageService,
+    private messageService: MessageService,
     private formBuilder: FormBuilder,
     private router: Router
   ) { }
@@ -41,10 +41,9 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.retrieveValues();
-    console.log(this.profile);
     this.loginService.login$(this.profile).subscribe(
       (goodResponse) => {
-        console.log("response:", goodResponse);
+        console.log("succeeded to login:", goodResponse);
         this.handleOK(goodResponse.body as unknown as any[]);
       },
       (badResponse) => {
@@ -53,11 +52,11 @@ export class LoginComponent implements OnInit {
             this.messageService.setMessage("json string bad formatted - Versuche es später erneut.");
             break;
           case 490://username nonexistent
-          this.messageService.setMessage(badResponse.body);
+            this.messageService.setMessage(badResponse.error);
             break;
           case 491://pwd wrong
-            this.messageService.setMessage(badResponse.body);
-            break; 
+            this.messageService.setMessage(badResponse.error);
+            break;
           default:
             alert(badResponse.error + badResponse.status + badResponse.statusMessage + "\n Ein Server Error liegt vor! \nBitte starten Sie den Server.");
             break;
@@ -77,7 +76,6 @@ export class LoginComponent implements OnInit {
       let token: string = body[1];
       this.loginService.setLoggedIn(user, this.profile, token);
       this.router.navigate(['']);
-      console.log("user", user, "token", token);
     }
     catch (e) {
       console.log("Server Fehler! Bitte später nochmal versuchen!", e);
