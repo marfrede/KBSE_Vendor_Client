@@ -21,7 +21,7 @@ export class HomeComponent implements AfterViewInit {
     this.frontendActive_().then(bool=>this.frontendActive=bool);
     setInterval(()=>{
       this.frontendActive_().then(bool=>this.frontendActive=bool);
-    }, 1000 * 30) //half a minute
+    }, 1000 * 120) //every two minute
   }
 
   frontendActive_():Promise<boolean> {
