@@ -24,6 +24,12 @@
             <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
         </svg>
     </div>
+    <div *ngIf="loginService.token" class="card" [routerLink]="['/orders']">
+        <div>Auftrag bearbeiten</div>
+        <svg class="material-icons" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+        </svg>
+    </div>
     <app-messages></app-messages>
     <br>
     <a *ngIf="frontendActive" class="circle-link" title="Zum Frontend" target="_blank" href="http://localhost:8080/VirtuelleLebensmittel/"
