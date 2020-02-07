@@ -47,6 +47,7 @@ export class OfferDetailComponent implements OnInit {
     return new Promise<Offer>((resolve) => {
       this.offerService.getOffer$(offer_id).subscribe(
         (goodResponse) => {
+          console.log("succeeded during getOffer:", goodResponse);
           let offer = goodResponse.body as Offer;
           resolve(offer);
         },

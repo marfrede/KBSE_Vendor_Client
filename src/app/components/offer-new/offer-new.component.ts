@@ -67,10 +67,10 @@ export class OfferNewComponent implements OnInit {
             this.router.navigate(['/login']).then(() => this.messageService.setMessage("Ihre Session ist abgelaufen. Bitte melden Sie sich erneut an.", true));
             break;
           case 471://token missing
-            this.messageService.setMessage(badResponse.statusMessage);
+          this.router.navigate(['home']).then(() => this.messageService.setMessage(badResponse.statusMessage));
             break;
           case 475://duplicate offer
-            this.router.navigate(['/all']).then(() => this.messageService.setMessage("Sie haben bereits ein gleichnamiges Angebot erstellt. Sie können keine 2 Angebote mit dem selben Namen anbieten."));
+            this.router.navigate(['/all']).then(() => this.messageService.setMessageTimeout("Sie haben bereits ein gleichnamiges Angebot (\""+this.offer.name+"\") erstellt. Sie können keine 2 Angebote mit dem selben Namen anbieten.",5000));
             break;
           case 476://property missing
             this.messageService.setMessage(badResponse.error);

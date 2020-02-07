@@ -8,8 +8,7 @@ import { Offer } from '../model/offer';
   providedIn: 'root'
 })
 export class OfferService {
-  readonly url: string = 'http://localhost:8080/VirtuelleLebensmittel/resources/vendor/';
-
+  readonly url: string = 'http://localhost:8080/VirtuelleLebensmittel/resources/vendor/offers';
 
   constructor(
     private http: HttpClient,
@@ -24,7 +23,7 @@ export class OfferService {
       }),
       observe: 'response' as 'response'
     };
-    return this.http.get<string>(this.url + "offers", httpOptions);
+    return this.http.get<string>(this.url, httpOptions);
   }
 
   getOffer$(offer_id: number): Observable<HttpResponse<string>> {
@@ -35,7 +34,7 @@ export class OfferService {
       }),
       observe: 'response' as 'response'
     };
-    return this.http.get<string>(this.url + `offers/${offer_id}`, httpOptions);
+    return this.http.get<string>(this.url + `/${offer_id}`, httpOptions);
   }
 
   public addOffer$(offer: Offer): Observable<HttpResponse<Object>> {
@@ -46,7 +45,7 @@ export class OfferService {
       }),
       observe: 'response' as 'response'
     };
-    return this.http.post(this.url + "offers", JSON.stringify(offer), httpOptions);
+    return this.http.post(this.url, JSON.stringify(offer), httpOptions);
   }
 
   updateOffer$(offer: Offer): Observable<HttpResponse<Object>> {
@@ -57,7 +56,7 @@ export class OfferService {
       }),
       observe: 'response' as 'response'
     };
-    return this.http.put(this.url + `offers/${offer.id}`, JSON.stringify(offer), httpOptions);
+    return this.http.put(this.url + `/${offer.id}`, JSON.stringify(offer), httpOptions);
   }
 
 }

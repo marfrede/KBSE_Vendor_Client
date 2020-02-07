@@ -54,7 +54,7 @@ export class OfferListComponent implements OnInit {
               this.router.navigate(['/login']).then(() => this.messageService.setMessage("Ihre Session ist abgelaufen. Bitte melden Sie sich erneut an.", true));
               break;
             case 471://token missing
-              this.messageService.setMessage(badResponse.statusMessage);
+            this.router.navigate(['home']).then(() => this.messageService.setMessage(badResponse.statusMessage));
               break;
             default://e.x. 500 server error
               this.messageService.setMessage("Server Error >" + badResponse.status + " " + badResponse.statusMessage + "< " + badResponse.error);
