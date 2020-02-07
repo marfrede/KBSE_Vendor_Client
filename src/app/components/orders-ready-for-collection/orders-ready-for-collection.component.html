@@ -1,0 +1,33 @@
+<div *ngIf="orders && orders.length > 0; else noOrders">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Produktname</th>
+          <th scope="col">Anzahl</th>
+          <th scope="col">Gesamtpreis</th>
+          <th scope="col">Datum</th>
+          <th scope="col">Einzelpreis</th>
+          <th scope="col">von Kunde</th>
+          <th scope="col" data-toggle="tooltip" data-placement="top" title="Gibt an, ob ein Angebot für Kunden erwerblich und somit für Sie verbindlich ist.">aktiv</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders" class="offer">
+          <th scope="row">{{order.id}}</th>
+          <td>{{order.offerName}}</td>
+          <td>{{order.count}}</td>
+          <td>{{order.totalPrice | currency:'EUR':'symbol':'1.2-2'}}</td>
+          <td>{{order.created}}</td>
+          <td>{{order.offerPrice}}</td>
+          <td>{{order.customerName}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #noOrders>
+    <h2>
+      Sie haben akuell keine neuen Auftäge / Bestellungen.
+    </h2>
+  </ng-template>
+  <app-messages></app-messages>
